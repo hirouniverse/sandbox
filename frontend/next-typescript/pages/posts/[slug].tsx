@@ -15,12 +15,14 @@ const PostPage: NextPage = () => {
   const router = useRouter()
 
   useEffect(() => {
+    let isMounted = true;
     (async () => {
       const { data } = await axios.get<Post>(
         `${process.env.API_URL}/posts/${router.query.slug}`
       )
-      setPost(data)
+      if (isMounted) setPost(data)
     })()
+    return () => { isMounted = false }
   }, [])
 
   return (

@@ -15,10 +15,12 @@ const RootPage: NextPage = () => {
 
   const [posts, setPosts] = useState<Post[]>([])
   useEffect(() => {
+    let isMounted = true;
     (async () => {
       const { data } = await axios.get<Post[]>(`${process.env.API_URL}/posts`)
-      setPosts(data)
+      if (isMounted) setPosts(data)
     })()
+    return () => { isMounted = false }
   })
 
   return (
