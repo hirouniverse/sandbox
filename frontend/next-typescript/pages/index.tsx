@@ -35,6 +35,9 @@ const RootPage: NextPage = () => {
             <Link href="/about">
               <Nav.Link href="#features">Features</Nav.Link>
             </Link>
+            <Link href="/counter">
+              <Nav.Link href="#counter">Counter</Nav.Link>
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
