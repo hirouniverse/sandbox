@@ -12,7 +12,6 @@ type Post = {
 }
 
 const RootPage: NextPage = () => {
-
   const [posts, setPosts] = useState<Post[]>([])
   useEffect(() => {
     let isMounted = true;
@@ -21,7 +20,7 @@ const RootPage: NextPage = () => {
       if (isMounted) setPosts(data)
     })()
     return () => { isMounted = false }
-  })
+  }, [])
 
   return (
     <>
