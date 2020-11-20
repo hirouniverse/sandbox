@@ -4,7 +4,9 @@
   "main": "main.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node ./src/main.ts"
+    "dev:ts": "ts-node ./src/main.ts",
+    "dev:js": "tsc && node ./src/dist/main.js",
+    "build": "tsc"
   },
   "dependencies": {
     "ts-node": "^9.0.0",
