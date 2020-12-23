@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev:ts": "ts-node ./src/main.ts",
-    "dev:js": "tsc && node ./src/dist/main.js",
+    "dev:js": "tsc && node ./dist/main.js",
     "build": "tsc"
   },
   "dependencies": {
