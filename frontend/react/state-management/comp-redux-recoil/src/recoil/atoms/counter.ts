@@ -1,4 +1,4 @@
-import { atom, AtomOptions } from 'recoil';
+import { atom } from 'recoil';
 
 export const counterState = atom<number>({
     key: 'counterState',
