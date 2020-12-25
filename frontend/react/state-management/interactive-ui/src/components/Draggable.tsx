@@ -1,10 +1,11 @@
+// https://engineering.datorama.com/mastering-drag-drop-with-reactjs-part-01-39bed3d40a03
 import React from 'react';
 import styled, { css } from 'styled-components';
 
 interface IProps {
-    onDragStart: () => void;
-    onDrag: ({ translateX, translateY}: { translateX: number, translateY: number }) => void;
-    onDragEnd: () => void;
+    onDragStart?: () => void;
+    onDrag?: ({ translateX, translateY}: { translateX: number, translateY: number }) => void;
+    onDragEnd?: () => void;
 }
 
 interface IState {
@@ -123,11 +124,12 @@ type IContainerProps = {
     isDragging: boolean
 }
 
+// this section doesn't work because you should pass mapping to 'style' attr
 const Container = styled.div.attrs({
-    style: ({ x, y }: { x: number, y: number }) => ({
-        transform: `translate(${x}px ${y}px)`
+    style: ({ x, y }: {x: number, y: number}) => ({
+      transform: `translate(${x}px, ${y}px)`
     }),
-})<IContainerProps>`
+  })<IContainerProps>`
     cursor: grab;
 
     ${({ isDragging }) =>
