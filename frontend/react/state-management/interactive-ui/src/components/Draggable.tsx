@@ -26,18 +26,22 @@ type TPositionType = {
 }
 
 export class Draggable extends React.Component<IProps, IState> {
-    state = {
-        isDragging: false,
+    constructor(props: React.PropsWithChildren<IProps>) {
+        super(props);
 
-        originalX: 0,
-        originalY: 0,
-
-        translateX: 0,
-        translateY: 0,
-
-        lastTranslateX: 0,
-        lastTranslateY: 0,
-    };
+        this.state = {
+            isDragging: false,
+    
+            originalX: 0,
+            originalY: 0,
+    
+            translateX: 0,
+            translateY: 0,
+    
+            lastTranslateX: 0,
+            lastTranslateY: 0,
+        };
+    }
 
     componentWillUnmount() {
         window.removeEventListener('mouseover', this.handleMouseMove);
@@ -59,7 +63,7 @@ export class Draggable extends React.Component<IProps, IState> {
         });
     };
 
-    handleMouseMove = ({ clientX, clientY }: TPositionType) => {
+    handleMouseMove = ({ clientX: mousePositionX, clientY: mousePositionY }: TPositionType) => {
         const { isDragging } = this.state;
         const { onDrag } = this.props;
 
@@ -67,10 +71,25 @@ export class Draggable extends React.Component<IProps, IState> {
             return;
         }
 
-        this.setState(prevState => ({
-            translateX: clientX - prevState.originalX + prevState.lastTranslateX,
-            translateY: clientY - prevState.originalY + prevState.lastTranslateY, 
-        }), () => {
+        this.setState(prevState => {
+            let translatePositionX: number = mousePositionX - prevState.originalX + prevState.lastTranslateX;
+            let translatePositionY: number = mousePositionY - prevState.originalY + prevState.lastTranslateY;
+
+            if (prevState.lastTranslateX + (mousePositionX - prevState.originalX) <= 0) {
+                translatePositionX = 0;
+            }
+
+            if (prevState.lastTranslateY + (mousePositionY - prevState.originalY) <= 0) {
+                translatePositionY = 0;
+            }
+            
+            return {
+                translateX: translatePositionX,
+                translateY: translatePositionY, 
+            };
+        }
+        ,() => {
+            
             if (onDrag) {
                 onDrag({
                     translateX: this.state.translateX,
@@ -129,6 +148,7 @@ const Container = styled.div.attrs(({x, y} : {x: number, y: number}) => ({
         transform: `translate(${x}px, ${y}px)`
     }
 }))<IContainerProps>`
+    display: inline-block;
     cursor: grab;
 
     ${({ isDragging }) =>
