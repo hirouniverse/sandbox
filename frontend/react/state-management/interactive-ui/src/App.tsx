@@ -11,7 +11,13 @@ export const App = () => {
   return (
     <div className="App">
       <Draggable>
-        <Box />
+        <Box
+          style={{backgroundColor: 'red'}}
+        />
+      </Draggable>
+      <Draggable>
+        <Box
+          style={{backgroundColor: 'blue'}} />
       </Draggable>
     </div>
   );
