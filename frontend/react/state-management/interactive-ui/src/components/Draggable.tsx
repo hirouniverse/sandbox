@@ -124,12 +124,11 @@ type IContainerProps = {
     isDragging: boolean
 }
 
-// this section doesn't work because you should pass mapping to 'style' attr
-const Container = styled.div.attrs({
-    style: ({ x, y }: {x: number, y: number}) => ({
-      transform: `translate(${x}px, ${y}px)`
-    }),
-  })<IContainerProps>`
+const Container = styled.div.attrs(({x, y} : {x: number, y: number}) => ({
+    style: {
+        transform: `translate(${x}px, ${y}px)`
+    }
+}))<IContainerProps>`
     cursor: grab;
 
     ${({ isDragging }) =>
